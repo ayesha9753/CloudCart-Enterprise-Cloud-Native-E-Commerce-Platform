@@ -32,3 +32,12 @@ def get_product_by_id(product_id: int):
             return product
 
     return {"error": "Product not found"}
+
+def update_product(product_id: int, updated_product):
+    for product in products:
+        if product["id"] == product_id:
+            product["name"] = updated_product.name
+            product["price"] = updated_product.price
+            return product
+
+    return {"error": "Product not found"}
