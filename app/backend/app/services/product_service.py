@@ -1,51 +1,38 @@
-products = [
-    {
-        "id": 1,
-        "name": "MacBook Pro M4",
-        "price": 450000
-    },
-    {
-        "id": 2,
-        "name": "Logitech MX Master 3S",
-        "price": 32000
-    }
-]
+from sqlalchemy.orm import Session
+
+from app.repositories.product_repository import (
+    get_all_products as repo_get_all_products,
+    get_product_by_id as repo_get_product_by_id,
+    create_product as repo_create_product,
+    update_product as repo_update_product,
+    delete_product as repo_delete_product,
+)
 
 
-def get_all_products():
-    return products
+def get_all_products(db: Session):
+    return repo_get_all_products(db)
 
 
-def create_product(product):
-    new_product = {
-        "id": len(products) + 1,
-        "name": product.name,
-        "price": product.price
-    }
+def get_product_by_id(db: Session, product_id: int):
+    return repo_get_product_by_id(db, product_id)
 
-    products.append(new_product)
-    return new_product
 
-def get_product_by_id(product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            return product
+def create_product(db: Session, product):
+    return repo_create_product(
+        db=db,
+        name=product.name,
+        price=product.price,
+    )
 
-    return {"error": "Product not found"}
 
-def update_product(product_id: int, updated_product):
-    for product in products:
-        if product["id"] == product_id:
-            product["name"] = updated_product.name
-            product["price"] = updated_product.price
-            return product
+def update_product(db: Session, product_id: int, product):
+    return repo_update_product(
+        db=db,
+        product_id=product_id,
+        name=product.name,
+        price=product.price,
+    )
 
-    return {"error": "Product not found"}
 
-def delete_product(product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            products.remove(product)
-            return {"message": "Product deleted successfully"}
-
-    return {"error": "Product not found"}
+def delete_product(db: Session, product_id: int):
+    return repo_delete_product(db, product_id)
