@@ -8,6 +8,7 @@ from app.models.product import Product
 
 from app.routers.health import router as health_router
 from app.routers.products import router as products_router
+from app.models.user import User
 
 app = FastAPI(
     title="CloudCart API",
