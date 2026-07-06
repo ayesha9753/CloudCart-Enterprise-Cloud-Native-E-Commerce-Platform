@@ -31,12 +31,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Check Python Version
-        run: python --version
-
-      - name: Verify Imports
+      - name: Verify FastAPI App Imports
         run: |
-          python -c "import fastapi"
-          python -c "import sqlalchemy"
-          python -c "import jose"
-          python -c "import passlib"
+          python -c "from app.main import app; print('CloudCart API imported successfully')"
