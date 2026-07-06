@@ -14,11 +14,18 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     )
 
     try:
+        print("=" * 50)
+        print("TOKEN:", token)
+        print("SECRET:", settings.SECRET_KEY)
+        print("ALGORITHM:", settings.ALGORITHM)
+
         payload = jwt.decode(
             token,
             settings.SECRET_KEY,
             algorithms=[settings.ALGORITHM],
         )
+
+        print("PAYLOAD:", payload)
 
         email = payload.get("sub")
 
@@ -27,5 +34,6 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
 
         return email
 
-    except JWTError:
+    except JWTError as e:
+        print("JWT ERROR:", e)
         raise credentials_exception
