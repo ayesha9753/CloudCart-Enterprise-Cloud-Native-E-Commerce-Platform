@@ -17,6 +17,27 @@ jobs:
       run:
         working-directory: app/backend
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: cloudcart
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DATABASE_URL: postgresql://postgres:password@localhost:5432/cloudcart
+      SECRET_KEY: github-actions-secret-key
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
