@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: cloudcart-api
-          image: ayesha9753/cloudcart-api:latest
+          image: aysh97/cloudcart-api:latest
 
           ports:
             - containerPort: 8000

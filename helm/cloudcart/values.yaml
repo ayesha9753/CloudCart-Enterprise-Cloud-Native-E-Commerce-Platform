@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: ayesha9753/cloudcart-api
+  repository: aysh97/cloudcart-api:latest
   tag: latest
   pullPolicy: IfNotPresent
 
